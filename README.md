@@ -7,7 +7,6 @@ This project is being built **from scratch** with a modern tech stack to demonst
 ![GitHub last commit](https://img.shields.io/github/last-commit/punz321/jira-lite?color=green)
 ![WIP](https://img.shields.io/badge/status-WIP-orange)
 
---
 ## 🛠️ Tech Stack
 
 ### Backend
@@ -30,4 +29,32 @@ This project is being built **from scratch** with a modern tech stack to demonst
 - **GitHub Actions (CI/CD)**
 - **Azure App Service** (target deployment)
 
+*(Extra features like OAuth login, dark mode, Redis caching will come later 🚀)*
 
+## ⚡ Getting Started
+
+### Prerequisites
+- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)  
+- [Node.js LTS](https://nodejs.org/en/)  
+- [PostgreSQL](https://www.postgresql.org/download/)  
+- [Docker](https://www.docker.com/) *(optional, later for containerization)*  
+
+### Clone Repo
+```bash
+git clone https://github.com/punz321/jira-lite.git
+cd jira-lite
+```
+### Run Backend
+```bash
+cd TaskFlow.API
+dotnet restore
+dotnet run
+```
+### Run Frontend
+```bash
+cd taskflow-frontend
+npm install
+npm start
+```
+## 📜License
+MIT License © 2025
