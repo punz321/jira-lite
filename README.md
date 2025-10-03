@@ -1,8 +1,8 @@
 # 🚀 TaskFlow – Team & Task Management System
 A full-stack project management system inspired by Jira/Trello, built with .NET Core, React, and PostgreSQL.
 
-![GitHub repo size](https://img.shields.io/github/repo-size/punz321/taskflow?color=blue)
-![GitHub last commit](https://img.shields.io/github/last-commit/punz321/taskflow?color=green)
+![GitHub repo size](https://img.shields.io/github/repo-size/punz321/jira-lite?color=blue)
+![GitHub last commit](https://img.shields.io/github/last-commit/punz321/jira-lite?color=green)
 ![WIP](https://img.shields.io/badge/status-WIP-orange)
 
 ## 📌 Overview
