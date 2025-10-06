@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using TaskFlow.API.Data;
 using TaskFlow.API.Models;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace TaskFlow.API.Controllers
 {
@@ -9,58 +11,62 @@ namespace TaskFlow.API.Controllers
     [Route("api/[controller]")]
     public class BooksController : ControllerBase
     {
-        // simple in-memory store for this warmup exercise
-        private static readonly object _lock = new object();
-        private static readonly List<Book> _books = new List<Book>
+        private readonly AppDbContext _context;
+
+        public BooksController(AppDbContext context)
         {
-            new Book { Id = 1, Title = "Clean Code", Author = "Robert C. Martin" },
-            new Book { Id = 2, Title = "The Pragmatic Programmer", Author = "Andrew Hunt & David Thomas" }
-        };
+            _context = context;
+        }
 
         // GET: api/books
         [HttpGet]
-        public ActionResult<IEnumerable<Book>> Get()
+        public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
         {
-            return Ok(_books);
+            var books = await _context.Books.ToListAsync();
+            return Ok(books);
         }
 
         // GET: api/books/{id}
         [HttpGet("{id}")]
-        public ActionResult<Book> Get(int id)
+        public async Task<ActionResult<Book>> GetBook(int id)
         {
-            var book = _books.FirstOrDefault(b => b.Id == id);
-            if (book == null) return NotFound();
+            var book = await _context.Books.FindAsync(id);
+            if (book == null)
+                return NotFound();
             return Ok(book);
         }
 
         // POST: api/books
         [HttpPost]
-        public ActionResult<Book> Post([FromBody] Book newBook)
+        public async Task<ActionResult<Book>> AddBook([FromBody] Book newBook)
         {
-            if (newBook == null) return BadRequest();
+            if (newBook == null)
+                return BadRequest("Invalid book data.");
 
-            lock (_lock)
-            {
-                var nextId = _books.Any() ? _books.Max(b => b.Id) + 1 : 1;
-                newBook.Id = nextId;
-                _books.Add(newBook);
-            }
+            await _context.Books.AddAsync(newBook);
+            await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(Get), new { id = newBook.Id }, newBook);
+            return CreatedAtAction(nameof(GetBook), new { id = newBook.Id }, newBook);
         }
 
         // PUT: api/books/{id}
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] Book updated)
+        public async Task<IActionResult> UpdateBook(int id, [FromBody] Book updatedBook)
         {
-            if (updated == null || id != updated.Id) return BadRequest();
+            if (id != updatedBook.Id)
+                return BadRequest();
 
-            lock (_lock)
+            _context.Entry(updatedBook).State = EntityState.Modified;
+
+            try
             {
-                var idx = _books.FindIndex(b => b.Id == id);
-                if (idx == -1) return NotFound();
-                _books[idx].Title = updated.Title;
-                _books[idx].Author = updated.Author;
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!await _context.Books.AnyAsync(b => b.Id == id))
+                    return NotFound();
+                throw;
             }
 
             return NoContent();
@@ -68,14 +74,14 @@ namespace TaskFlow.API.Controllers
 
         // DELETE: api/books/{id}
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> DeleteBook(int id)
         {
-            lock (_lock)
-            {
-                var book = _books.FirstOrDefault(b => b.Id == id);
-                if (book == null) return NotFound();
-                _books.Remove(book);
-            }
+            var book = await _context.Books.FindAsync(id);
+            if (book == null)
+                return NotFound();
+
+            _context.Books.Remove(book);
+            await _context.SaveChangesAsync();
 
             return NoContent();
         }
