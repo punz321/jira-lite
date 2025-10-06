@@ -3,7 +3,7 @@ using TaskFlow.API.Models;
 
 namespace TaskFlow.API.Data
 {
-    public class AppContext : DbContext
+    public class AppDbContext : DbContext
      {
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
