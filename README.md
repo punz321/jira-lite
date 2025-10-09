@@ -37,7 +37,7 @@ This project is being built **from scratch** with a modern tech stack to demonst
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)  
 - [Node.js LTS](https://nodejs.org/en/)  
 - [PostgreSQL](https://www.postgresql.org/download/)  
-- [Docker](https://www.docker.com/) *(optional, later for containerization)*  
+- [Docker](https://www.docker.com/) (optional, later for containerization)
 
 ### Clone Repo
 ```bash
