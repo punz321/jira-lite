@@ -29,7 +29,7 @@ This project is being built **from scratch** with a modern tech stack to demonst
 - **GitHub Actions (CI/CD)**
 - **Azure App Service** (target deployment)
 
-*(Extra features like OAuth login, dark mode, Redis caching will come later 🚀)*
+(Extra features like OAuth login, dark mode, Redis caching can come later)
 
 ## ⚡ Getting Started
 
