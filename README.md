@@ -57,4 +57,4 @@ npm install
 npm start
 ```
 ## 📜License
-MIT License © 2025
+MIT License - 2025
