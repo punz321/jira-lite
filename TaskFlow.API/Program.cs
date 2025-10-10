@@ -1,12 +1,16 @@
 using TaskFlow.API.Data;
 using Microsoft.EntityFrameworkCore;
+using DotNetEnv;
 
-var builder = WebApplication.CreateBuilder(args);
+
+Env.Load(); // Loads variables from .env file
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
 var connectionString = $"Host=localhost;Port=5432;Database=jira_lite_dev;Username=postgres;Password={dbPassword}";
+
+var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
