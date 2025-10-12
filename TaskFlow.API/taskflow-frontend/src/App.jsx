@@ -45,7 +45,7 @@ function App() {
 
       <h2>Book List</h2>
       {books.length === 0 ? (
-        <p>No books yet — add one!</p>
+        <p>No books yet - add one!</p>
       ) : (
         <ul>
           {books.map((b) => (
