@@ -11,5 +11,7 @@ namespace TaskFlow.API.Data
         }
 
         public DbSet<Book> Books { get; set; }
+        public DbSet<TaskItem> Tasks { get; set; }
+
     }
 }
