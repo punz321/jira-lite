@@ -2,8 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TaskFlow.API.Data;
 using TaskFlow.API.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace TaskFlow.API.Controllers
 {
