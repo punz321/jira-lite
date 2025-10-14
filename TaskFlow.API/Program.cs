@@ -7,15 +7,19 @@ Env.Load(); // Loads variables from .env file
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
-var connectionString = $"Host=localhost;Port=5432;Database=jira_lite_dev;Username=postgres;Password={dbPassword}";
 
+//created builder
 var builder = WebApplication.CreateBuilder(args);
+
+//created connection string
+var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION")
+    ?? builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//plugged in db context
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 
