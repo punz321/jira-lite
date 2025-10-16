@@ -44,7 +44,7 @@ export default function Tasks() {
         <ul>
           {tasks.map((t) => (
             <li key={t.id}>
-              <strong>{t.title}</strong> — {t.description}
+              <strong>{t.title}</strong> - {t.description}
             </li>
           ))}
         </ul>

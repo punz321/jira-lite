@@ -72,7 +72,7 @@ function App() {
             <ul>
               {books.map((b) => (
                 <li key={b.id}>
-                  <strong>{b.title}</strong> — <em>{b.author}</em>
+                  <strong>{b.title}</strong> - <em>{b.author}</em>
                 </li>
               ))}
             </ul>
